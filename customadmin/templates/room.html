@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+
+      .container {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+      }
+
+      .darker {
+        border-bottom:none !important;
+        border-color: #ccc;
+        background-color: #ddd;
+        padding:10px 20px !important;
+      }
+
+      .container::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .time-right {
+        float: right;
+        color: #aaa;
+      }
+
+      .time-left {
+        float: left;
+        color: #999;
+      }
+
+      p{
+        margin-bottom: 0px !important;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="mx-lg-5">
+    {% if user.is_superuser %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'dashboard' %}">
+            <img
+              src="https://cdn3.f-cdn.com/contestentries/1733723/42113248/5e47d289f1335_thumb900.jpg"
+              class="w-100"
+              height="90"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
+          <a href="{% url 'home' %}" class="text-decoration-none">
+            <div class="h5 mt-3 text-success">
+              Back To Home <i class="fa fa-home"></i>
+            </div>
+          </a>
+          <!-- Left links -->
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add_employee' %}"
+                >Add Employee</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add_task' %}">Add Task</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'task_history' %}"
+                >Task History</a
+              >
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Avatar -->
+          <div class="dropdown me-4">
+            <a
+              class="dropdown-toggle d-flex align-items-center hidden-arrow"
+              href="#"
+              id="navbarDropdownMenuAvatar"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                class="rounded-circle"
+                height="25"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+              />
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuAvatar"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'profile' %}"
+                  >My profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Settings</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'admin_logout' %}"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right elements -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'mytasks' %}">
+            <img
+              src="https://previews.123rf.com/images/glopphy/glopphy1511/glopphy151100012/47791517-teamwork-workers-and-employees-in-a-meeting-logo-vector-image.jpg"
+              class="w-100"
+              height="75"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
+          <a href="{% url 'home' %}" class="text-decoration-none">
+            <div class="h5 mt-3 text-success mx-3">
+              Back To Home <i class="fa fa-home"></i>
+            </div>
+          </a>
+          <!-- Left links -->
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              Welocome to Your profile <span class="h5 fw-bold mx-2 text-success">{{employee}}</span>
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Avatar -->
+          <div class="dropdown me-4">
+            <a
+              class="dropdown-toggle d-flex align-items-center hidden-arrow"
+              href="#"
+              id="navbarDropdownMenuAvatar"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="data:image/jpeg;base64,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"
+                class="rounded-circle"
+                height="25"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+              />
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuAvatar"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'userprofile' %}"
+                  >My profile</a
+                >
+              </li>
+              {% comment %} <li>
+                <a class="dropdown-item" href="#">Settings</a>
+              </li> {% endcomment %}
+              {% if user.is_authenticated %}
+              <li>
+                <a class="dropdown-item" href="{% url 'emplogout' %}">Logout</a>
+              </li>
+              {% else %}
+              <li>
+                <a class="dropdown-item" href="#">Login</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+        <!-- Right elements -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    {% endif %}
+    {% include 'messages.html' %}
+    <h2 class="text-center my-4">{{room}} - Chatroom</h2>
+
+    <div id="display" class=' mx-lg-5 p-lg-5 mx-3 div'>
+      <!-- <div class="container darker">
+  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+  <span class="time-left">20th, April 2021</span>
+</div> -->
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        setInterval(function () {
+          $.ajax({
+            type: "GET",
+            url: "{% url 'getMessages' room=room %}",
+            success: function (response) {
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages) {
+                var temp =
+                  "<div class='container darker'><b>" +
+                  response.messages[key].user +
+                  "</b><p>" +
+                  response.messages[key].value +
+                  "</p><span class='time-left'>" +
+                  response.messages[key].date +
+                  "</span></div>";
+                $("#display").append(temp);
+              }
+            },
+            error: function (response) {
+              alert("An error occured");
+            },
+          });
+        }, 1000);
+      });
+    </script>
+    <div class="mx-lg-5 px-lg-5 mx-3 div">
+      <style>
+        input[type="text"],
+        select {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+          width: 100%;
+          background-color: #4caf50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #45a049;
+        }
+
+        .div {
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          {% comment %} padding: 40px !important; {% endcomment %}
+        }
+      </style>
+
+      <form id="post-form">
+        {% csrf_token %}
+        {% if user.is_superuser %}
+        <input
+          type="hidden"
+          name="username"
+          id="username"
+          value="{{username}}"
+        />
+        {% else %}
+        <input
+          type="hidden"
+          name="username"
+          id="username"
+          value="{{employee}}"
+        />
+        {% endif %}
+        <input
+          type="hidden"
+          name="room_id"
+          id="room_id"
+          value="{{room_details.id}}"
+        />
+        <input type="text" name="message" id="message" width="100px" />
+        <input type="submit" value="Send" />
+      </form>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
+    ></script>
+  </body>
+
+  <script type="text/javascript">
+    $(document).on("submit", "#post-form", function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'send' %}",
+        data: {
+          username: $("#username").val(),
+          room_id: $("#room_id").val(),
+          message: $("#message").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function (data) {
+          //alert(data)
+        },
+      });
+      document.getElementById("message").value = "";
+    });
+  </script>
+</html>
